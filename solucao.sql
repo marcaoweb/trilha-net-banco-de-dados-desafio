@@ -1,0 +1,94 @@
+-- # BUSCAR O NOME E O ANO DOS FILMES
+SELECT
+	Nome,
+	Ano
+FROM Filmes
+
+-- #BUSCAR O NOME E ANO DOS FILMES
+SELECT
+	Nome,
+	Ano,
+	Duracao
+FROM Filmes
+ORDER BY Ano
+
+-- #BUSCAR PELO FILME de volta para o futuro, TRAZENDO O NOME, ANO E DURAÇÃO
+SELECT
+	Nome,
+	Ano,
+	Duracao
+FROM Filmes
+WHERE Nome = 'De Volta para o Futuro'
+
+-- # BUSCAR FILMES LANÇADOS EM 1997
+SELECT
+	Nome,
+	Ano,
+	Duracao
+FROM Filmes
+WHERE Ano = 1997
+
+-- # BUSCAR FILMES LANÇADOS DEPOIS DE 2000
+SELECT
+	Nome,
+	Ano,
+	Duracao
+FROM Filmes
+WHERE Ano > 2000
+
+-- # BUSCAR FILMES COM DURAÇÃO MAIOR QUE 100 E MENOR QUE 150, ORDENANDO PELA DURAÇÃO EM ORDEM CRESCENTE
+SELECT
+	Nome,
+	Ano,
+	Duracao
+FROM Filmes
+WHERE Duracao > 100 AND Duracao < 150
+ORDER BY Duracao
+
+-- # BUSCAR A QUANTIDADE DE FILMES LANÇADAS NO ANO, AGRUPANDO POR ANO, ORDENANDO PELA DURAÇÃO EM ORDEM DESCRESCENTE
+SELECT
+	Ano,
+	COUNT(1) Quantidade
+FROM Filmes
+GROUP BY Ano
+ORDER BY Quantidade DESC
+
+-- # BUSCAR OS ATORES DO GENERO MASCULINO, RETORNANDO O PRIMEIRO NOME, ULTIMO NOME
+SELECT
+	*
+FROM Atores
+WHERE Genero = 'M'
+
+-- # BUSCAR OS ATORES DO GENERO FEMININO, RETORNANDO O PRIMEIRO NOME, SOBRENOME
+SELECT
+	*
+FROM Atores
+WHERE Genero = 'F'
+ORDER BY PrimeiroNome
+
+-- # BUSCAR O NOME DO FILMES E O GENERO
+SELECT
+	f.Nome,
+	g.Genero
+FROM Filmes f
+INNER JOIN FilmesGenero fg ON f.Id = fg.IdFilme
+INNER JOIN Generos g ON fg.IdGenero = g.Id
+
+-- # BUSCAR O NOME DO FILMES E GENERO TIPO MISTERIO
+SELECT
+	f.Nome,
+	g.Genero
+FROM Filmes f
+INNER JOIN FilmesGenero fg ON f.Id = fg.IdFilme
+INNER JOIN Generos g ON fg.IdGenero = g.Id
+WHERE g.Genero = 'Mistério'
+
+-- # BUSCAR O NOME DO FILMES E OS ATORES, TRAZENDO PRIMEIRO NOME, ULTIMO NOME E SEU PAPEL
+SELECT
+	f.Nome,
+	a.PrimeiroNome,
+	a.UltimoNome,
+	ef.Papel
+FROM Filmes f
+INNER JOIN ElencoFilme ef ON f.Id = ef.IdFilme
+INNER JOIN Atores a ON ef.IdAtor = a.Id
